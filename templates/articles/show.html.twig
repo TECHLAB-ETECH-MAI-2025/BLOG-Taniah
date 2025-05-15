@@ -3,7 +3,8 @@
 {% block title %}Articles{% endblock %}
 
 {% block body %}
-    <h1>Articles</h1>
+    <h2>BLOG-TANIAH</h2>
+    <h2>Articles</h2>
 
     <table class="table">
         <tbody>
@@ -20,11 +21,60 @@
                 <td>{{ article.content }}</td>
             </tr>
             <tr>
-                <th>Created_at</th>
+                <th>Créé le</th>
                 <td>{{ article.createdAt ? article.createdAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
+
+            <tr>
+                {% if article.categories|length > 0 %}
+                    <th>Catégories</th>
+                    <td>
+                        {% for category in article.categories %}
+                            {{ category.titre }}
+                        {% endfor %}
+                    </td>
+                {% endif %}
+            </tr>
+
+            <tr>
+                {% if article.comments|length > 0 %}
+                    <th>Commentaires</th>
+                    <tr>
+                        {% for comment in article.comments %}
+                            <tr>
+                                <td>{{ comment.content }}</td>
+                            
+                                <td>{{ comment.author }}</td>
+                            
+                                <td>{{ comment.createdAt|date('d/m/Y H:i') }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tr>
+                {% else %}
+					<tr>
+                        Aucun commentaire pour le moment. Soyez le premier à réagir !
+                    </tr>
+                {% endif %}
+            </tr>
+
+            <tr>
+                <td>
+                    {{ form_widget(commentForm.content, {'attr': {
+											'class': 'form-control',
+											'rows': 4,
+											'placeholder': 'Votre commentaire...',
+											'required': 'required'
+										}}) }}
+                </td>
+                <td>
+                    <button>Envoyer</button>
+                </td>
+            </tr>
+
         </tbody>
     </table>
+
+
 
     <a href="{{ path('app_articles_index') }}">back to list</a>
 

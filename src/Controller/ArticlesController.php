@@ -5,6 +5,9 @@ namespace App\Controller;
 use App\Entity\Articles;
 use App\Form\ArticlesForm;
 use App\Repository\ArticlesRepository;
+
+use App\Entity\Comment;
+use App\Form\CommentForm;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -43,10 +46,36 @@ final class ArticlesController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_articles_show', methods: ['GET'])]
-    public function show(Articles $article): Response
+    public function show(Articles $article, Request $request,  EntityManagerInterface $entityManager): Response
     {
+        // Création d'un nouveau commentaire
+		$comment = new Comment();
+		$comment->setArticle($article);
+
+        // Création du formulaire
+		$form = $this->createForm(CommentForm::class, $comment);
+		$form->handleRequest($request);
+
+        // Traitement du formulaire
+		if ($form->isSubmitted() && $form->isValid()) {
+			$comment->setCreatedAt(new \DateTimeImmutable());
+
+			// Enregistrement du commentaire
+			$entityManager->persist($comment);
+			$entityManager->flush();
+			// Message de succès
+			$this->addFlash('success', 'Votre commentaire a été publié avec succès !');
+
+				// Redirection pour éviter le rechargement du formulaire
+			return $this->redirectToRoute(
+				'app_article_show',
+				['id' => $article->getId()],
+				Response::HTTP_SEE_OTHER
+			);
+		}
         return $this->render('articles/show.html.twig', [
             'article' => $article,
+            'commentForm' => $form->createView(),
         ]);
     }
 

@@ -3,11 +3,18 @@
 {% block title %}Edit Categories{% endblock %}
 
 {% block body %}
-    <h1>Edit Categories</h1>
+    <div class="container mb-3">
+            <h4>Modifier catégorie</h4>
 
-    {{ include('categories/_form.html.twig', {'button_label': 'Update'}) }}
+        {{ include('categories/_form.html.twig', {'button_label': 'Maj'}) }}
 
-    <a href="{{ path('app_categories_index') }}">back to list</a>
+        <div class="container">
+                <div class="mx-auto mb-3">
+                    <a href="{{ path('app_categories_index') }}" class="btn btn-primary">Voir la liste</a>
+                </div>
+        </div>
 
-    {{ include('categories/_delete_form.html.twig') }}
+        {{ include('categories/_delete_form.html.twig') }}    
+    </div>
+
 {% endblock %}
