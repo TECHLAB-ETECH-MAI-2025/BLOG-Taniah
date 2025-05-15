@@ -45,7 +45,7 @@ final class ArticlesController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_articles_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'app_articles_show', methods: ['GET', 'POST'])]
     public function show(Articles $article, Request $request,  EntityManagerInterface $entityManager): Response
     {
         // Création d'un nouveau commentaire
@@ -58,7 +58,7 @@ final class ArticlesController extends AbstractController
 
         // Traitement du formulaire
 		if ($form->isSubmitted() && $form->isValid()) {
-			$comment->setCreatedAt(new \DateTimeImmutable());
+			$comment->setCreatedAt(new \DateTime());
 
 			// Enregistrement du commentaire
 			$entityManager->persist($comment);
@@ -66,9 +66,9 @@ final class ArticlesController extends AbstractController
 			// Message de succès
 			$this->addFlash('success', 'Votre commentaire a été publié avec succès !');
 
-				// Redirection pour éviter le rechargement du formulaire
+			// Redirection pour éviter le rechargement du formulaire
 			return $this->redirectToRoute(
-				'app_article_show',
+				'app_articles_show',
 				['id' => $article->getId()],
 				Response::HTTP_SEE_OTHER
 			);

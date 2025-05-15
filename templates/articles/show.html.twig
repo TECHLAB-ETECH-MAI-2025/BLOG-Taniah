@@ -3,82 +3,83 @@
 {% block title %}Articles{% endblock %}
 
 {% block body %}
-    <h2>BLOG-TANIAH</h2>
-    <h2>Articles</h2>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ article.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ article.title }}</td>
-            </tr>
-            <tr>
-                <th>Content</th>
-                <td>{{ article.content }}</td>
-            </tr>
-            <tr>
-                <th>Créé le</th>
-                <td>{{ article.createdAt ? article.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
+<div class="card">
+    <div class="card-header w-100 d-flex flex-row justify-content-between align-items-center">
+        <h5 class="card-title">Détail article</h5>
+        <div class="card-tool d-flex flex-row justify-content-between align-items-center gap-2">
+            <a href="{{ path('app_articles_index') }}" class="btn btn-primary">Voir la liste</a>
+            {{ include('articles/_delete_form.html.twig') }}
+            <a href="{{ path('app_articles_edit', {'id': article.id}) }}" class="btn btn-success">Modifier</a>
+        </div>
+    </div>
+    <div class="card-body">
+        <dl>
+            <dt>Titre de l'article</dt>
+            <dd>{{ article.title }}</dd>
+            <dt>Description de l'article</dt>
+            <dd>{{ article.content }}</dd>
+            <dt>Créé le </dt>
+            <dd>{{ article.createdAt ? article.createdAt|date('Y-m-d H:i:s') : '' }}</dd>
+            {% if article.categories|length > 0 %}
+            <dt>Categories</dt>
+            <dd>
+                <ul>
+                    {% for category in article.categories %}
+                        <li>{{ category.titre }}</li>
+                    {% endfor %}
+                </ul>
+            </dd>
+            {% endif %}
+        </dl>
 
-            <tr>
-                {% if article.categories|length > 0 %}
-                    <th>Catégories</th>
-                    <td>
-                        {% for category in article.categories %}
-                            {{ category.titre }}
-                        {% endfor %}
-                    </td>
-                {% endif %}
-            </tr>
-
-            <tr>
+        <table class="table">
+            <tbody>
                 {% if article.comments|length > 0 %}
-                    <th>Commentaires</th>
                     <tr>
-                        {% for comment in article.comments %}
-                            <tr>
-                                <td>{{ comment.content }}</td>
-                            
-                                <td>{{ comment.author }}</td>
-                            
-                                <td>{{ comment.createdAt|date('d/m/Y H:i') }}</td>
-                            </tr>
-                        {% endfor %}
+                        <th colspan="2">Commentaire(s) sur cet article :</th>
                     </tr>
+                    {% for comment in article.comments %}
+                        <tr>
+                            <td>
+                                {{ comment.content }}
+                            </td>
+                            <td>
+                                par {{ comment.author }}
+
+                                le {{ comment.createdAt|date('d/m/Y H:i') }}
+                            </td>
+                        </tr>
+                    {% endfor %}
                 {% else %}
-					<tr>
-                        Aucun commentaire pour le moment. Soyez le premier à réagir !
+                    <tr>
+                        <td colspan="2">Aucun commentaire pour le moment. Soyez le premier à réagir !</td>
                     </tr>
                 {% endif %}
-            </tr>
+            </tbody>
+        </table>
 
-            <tr>
-                <td>
-                    {{ form_widget(commentForm.content, {'attr': {
-											'class': 'form-control',
-											'rows': 4,
-											'placeholder': 'Votre commentaire...',
-											'required': 'required'
-										}}) }}
-                </td>
-                <td>
-                    <button>Envoyer</button>
-                </td>
-            </tr>
+        <div>
+            <h5>Commentaire</h5>
 
-        </tbody>
-    </table>
+            {{ form_start(commentForm)}}
 
+                {{ form_widget(commentForm.author)}}
 
+                {{ form_widget(commentForm.content) }}
 
-    <a href="{{ path('app_articles_index') }}">back to list</a>
+                {{ form_widget(commentForm.createdAt)}}
 
-    <a href="{{ path('app_articles_edit', {'id': article.id}) }}">edit</a>
+                {{ form_widget(commentForm.article)}}
 
-    {{ include('articles/_delete_form.html.twig') }}
+                <div class="row">
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                    </div>
+                </div>
+            {{ form_end(commentForm)}}
+        </div>
+    </div>
+</div>
+                    
 {% endblock %}

@@ -1,11 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Articles{% endblock %}
+{% block title %}Nouveau articles{% endblock %}
 
 {% block body %}
-    <h1 class="text-primary">Create new Articles</h1>
-
-    {{ include('articles/_form.html.twig') }}
-
-    <a href="{{ path('app_articles_index') }}">back to list</a>
+<div class="card">
+    <div class="card-header w-100 d-flex flex-row justify-content-between align-items-center">
+        <h5 class="card-title">Création nouveau article</h5>
+        <div class="card-tool">
+            <a href="{{ path('app_articles_index') }}" class="btn btn-primary">Voir la liste</a>
+        </div>
+    </div>
+    <div class="card-body">
+        {{ include('articles/_form.html.twig') }}
+    </div>
+</div>
 {% endblock %}
