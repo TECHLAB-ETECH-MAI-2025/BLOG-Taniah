@@ -9,6 +9,7 @@ use App\Repository\ArticlesRepository;
 use App\Entity\Comment;
 use App\Form\CommentForm;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,10 +19,20 @@ use Symfony\Component\Routing\Attribute\Route;
 final class ArticlesController extends AbstractController
 {
     #[Route(name: 'app_articles_index', methods: ['GET'])]
-    public function index(ArticlesRepository $articlesRepository): Response
+    public function index(ArticlesRepository $articlesRepository, Request $request, PaginatorInterface $paginator): Response
     {
+        $query = $articlesRepository
+            ->createQueryBuilder('a')
+            ->getQuery();
+
+        $pagination = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            1
+        );
+
         return $this->render('articles/index.html.twig', [
-            'articles' => $articlesRepository->findAll(),
+            'pagination' =>  $pagination,
         ]);
     }
 
@@ -66,7 +77,7 @@ final class ArticlesController extends AbstractController
 			// Message de succès
 			$this->addFlash('success', 'Votre commentaire a été publié avec succès !');
 
-			// Redirection pour éviter le rechargement du formulaire
+            // Redirection pour éviter le rechargement du formulaire
 			return $this->redirectToRoute(
 				'app_articles_show',
 				['id' => $article->getId()],

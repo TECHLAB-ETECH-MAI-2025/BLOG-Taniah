@@ -22,7 +22,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for article in articles %}
+                {% for article in pagination %}
                     <tr>
                         <td>{{ article.title }}</td>
                         <td>{{ article.content }}</td>
@@ -39,6 +39,10 @@
                 {% endfor %}
                 </tbody>
             </table>
+
+            <div class="navigation">
+                {{ knp_pagination_render(pagination) }}
+            </div>
         </div>
     </div>
 {% endblock %}
