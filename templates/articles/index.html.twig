@@ -5,14 +5,14 @@
 {% block body %}
     <div class="card">
         <div class="card-header w-100 d-flex flex-row justify-content-between align-items-center">
-            <h5 class="card-title">Liste article</h5>
+            <h5 class="card-title">Liste articles</h5>
             <div class="card-tool">
                 <a href="{{ path('app_articles_new') }}" class="btn btn-success">Créer nouveau article</a>
             </div>
         </div>
 
         <div class="card-body">
-            <table class="table">
+            <table class="table table-striped" id="matable">
                 <thead class="text-primary">
                 <tr>
                     <th>Titre</th>
@@ -22,21 +22,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for article in pagination %}
-                    <tr>
-                        <td>{{ article.title }}</td>
-                        <td>{{ article.content }}</td>
-                        <td>{{ article.createdAt ? article.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                        <td class="d-flex flex-row justify-content-end align-items-center gap-2">
-                            <a href="{{ path('app_articles_show', {'id': article.id}) }}" class="btn btn-primary">Voir détails</a>
-                            <a href="{{ path('app_articles_edit', {'id': article.id}) }}" class="btn btn-success">Modifier</a>
-                        </td>
-                    </tr>
-                {% else %}
-                    <tr>
-                        <td colspan="5">no records found</td>
-                    </tr>
-                {% endfor %}
+                
                 </tbody>
             </table>
 

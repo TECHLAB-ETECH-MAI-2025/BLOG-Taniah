@@ -1,0 +1,21 @@
+{
+  "dependencies": {
+    "datatables.net": "^2.3.1",
+    "datatables.net-bs5": "^2.3.1",
+    "datatables.net-responsive": "^3.0.4",
+    "datatables.net-responsive-bs5": "^3.0.4",
+    "jquery": "^3.7.1"
+  },
+  "scripts": {
+    "dev": "encore dev",
+    "watch": "encore dev --watch",
+    "build": "encore production"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.27.2",
+    "@symfony/webpack-encore": "^5.1.0",
+    "babel-loader": "^9.2.1",
+    "sass": "^1.89.0",
+    "sass-loader": "^16.0.1"
+  }
+}
