@@ -15,9 +15,7 @@
     </div>
     <div class="card-body">
         <dl>
-            <dt>Titre de l'article</dt>
             <dd>{{ article.title }}</dd>
-            <dt>Description de l'article</dt>
             <dd>{{ article.content }}</dd>
             <dt>Créé le </dt>
             <dd>{{ article.createdAt ? article.createdAt|date('Y-m-d H:i:s') : '' }}</dd>
@@ -60,9 +58,9 @@
         </table>
 
         <div>
-            <h5>Commentaire</h5>
+            <h5>Commentaires</h5>
 
-            {{ form_start(commentForm)}}
+            {{ form_start(commentForm) }}
 
                 {{ form_widget(commentForm.author)}}
 
@@ -70,14 +68,12 @@
 
                 {{ form_widget(commentForm.createdAt)}}
 
-                {{ form_widget(commentForm.article)}}
-
                 <div class="row">
                     <div class="col-12">
                         <button type="submit" class="btn btn-primary">Enregistrer</button>
                     </div>
                 </div>
-            {{ form_end(commentForm)}}
+            {{ form_end(commentForm) }}
         </div>
     </div>
 </div>

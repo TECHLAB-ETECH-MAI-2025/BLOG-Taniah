@@ -12,32 +12,18 @@
     </div>
 
     <div class="card-body">
-    <table class="table">
+    <table class="table text-center align-middle" id="matableCategories">
         <thead class="text-primary">
             <tr>
                 <th>Titre</th>
-                <th>Descriptions</th>
+                <th>Contenus</th>
                 <th>Créé le</th>
                 <th>Actions</th>
             </tr>
         </thead>
-        <tbody>
-        {% for category in categories %}
-            <tr>
-                <td>{{ category.titre }}</td>
-                <td>{{ category.description }}</td>
-                <td>{{ category.createdAt ? category.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_categories_show', {'id': category.id}) }}" class="btn btn-primary">Voir</a>
-                    <a href="{{ path('app_categories_edit', {'id': category.id}) }}" class="btn btn-success">Modifier</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">aucune catégorie</td>
-            </tr>
-        {% endfor %}
-        </tbody>
+            <tbody>
+                
+            </tbody>
     </table>
     </div>
     </div>

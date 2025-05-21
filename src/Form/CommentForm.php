@@ -34,10 +34,10 @@ class CommentForm extends AbstractType
                 ]
             ])
             ->add('createdAt')
-            ->add('article', EntityType::class, [
-                'class' => Articles::class,
-                'choice_label' => 'title',
-            ])
+            // ->add('article', EntityType::class, [
+            //     'class' => Articles::class,
+            //     'choice_label' => 'title',
+            // ])
         ;
     }
 

@@ -12,13 +12,13 @@
         </div>
 
         <div class="card-body">
-            <table class="table table-striped" id="matable">
+            <table class="table text-center align-middle" id="matableArticles">
                 <thead class="text-primary">
                 <tr>
                     <th>Titre</th>
                     <th>Contenus</th>
                     <th>Créé le</th>
-                    <th class="text-end">Actions</th>
+                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -26,9 +26,7 @@
                 </tbody>
             </table>
 
-            <div class="navigation">
-                {{ knp_pagination_render(pagination) }}
-            </div>
+           
         </div>
     </div>
 {% endblock %}

@@ -21,19 +21,22 @@ final class ArticlesController extends AbstractController
     #[Route(name: 'app_articles_index', methods: ['GET'])]
     public function index(ArticlesRepository $articlesRepository, Request $request, PaginatorInterface $paginator): Response
     {
-        $query = $articlesRepository
-            ->createQueryBuilder('a')
-            ->getQuery();
+        // $query = $articlesRepository
+        //     ->createQueryBuilder('a')
+        //     ->getQuery();
 
-        $pagination = $paginator->paginate(
-            $query,
-            $request->query->getInt('page', 1),
-            1
+        // $pagination = $paginator->paginate(
+        //     $query,
+        //     $request->query->getInt('page', 1),
+        //     1
+        // );
+
+        return $this->render('articles/index.html.twig'
+        // ,[
+        //     'success'=>true,
+        //     // 'data'=>$pagination,
+        // ]
         );
-
-        return $this->render('articles/index.html.twig', [
-            'pagination' =>  $pagination,
-        ]);
     }
 
     #[Route('/new', name: 'app_articles_new', methods: ['GET', 'POST'])]

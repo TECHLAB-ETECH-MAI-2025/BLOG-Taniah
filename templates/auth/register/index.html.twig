@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h4 class="mb-4 text-center">Inscription</h4>
+
+            {% if registrationForm.vars.errors|length > 0 %}
+                <div class="alert alert-danger">
+                    {{ form_errors(registrationForm) }}
+                </div>
+            {% endif %}
+
+            {{ form_start(registrationForm, {'attr': {'class': 'needs-validation'}}) }}
+
+                <div class="mb-3">
+                    {{ form_label(registrationForm.email) }}
+                    {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(registrationForm.email) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(registrationForm.plainPassword, 'Password') }}
+                    {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(registrationForm.plainPassword) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(registrationForm.roles) }}
+                    {{ form_widget(registrationForm.roles, {'attr': {'class': 'form-select'}}) }}
+                    {{ form_errors(registrationForm.roles) }}
+                </div>
+
+                <div class="form-check mb-3">
+                    {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
+                    {{ form_label(registrationForm.agreeTerms, null, {'label_attr': {'class': 'form-check-label'}}) }}
+                    {{ form_errors(registrationForm.agreeTerms) }}
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">Register</button>
+
+            {{ form_end(registrationForm) }}
+        </div>
+    </div>
+</div>
+{% endblock %}
