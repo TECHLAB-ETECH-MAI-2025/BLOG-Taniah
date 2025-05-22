@@ -33,7 +33,7 @@ class CommentForm extends AbstractType
                     'required' => true
                 ]
             ])
-            ->add('createdAt')
+            // ->add('createdAt')
             // ->add('article', EntityType::class, [
             //     'class' => Articles::class,
             //     'choice_label' => 'title',

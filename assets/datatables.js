@@ -2,12 +2,13 @@ import $ from 'jquery';
 import 'datatables.net';
 import 'datatables.net-bs5';
 import 'datatables.net-responsive-bs5';
-// import './commentaires.js';
+// import './articles_list.js';
 
 window.$= $;
 window.jQuery= $ ;
 
 document.addEventListener('DOMContentLoaded',function(){
+    console.log('DAATATABLE');
     if($('#matableArticles').length){
         $('#matableArticles').DataTable({
             ajax: '/api/articles',

@@ -58,7 +58,7 @@ final class ArticlesController extends AbstractController
             'form' => $form,
         ]);
     }
-
+    
     #[Route('/{id}', name: 'app_articles_show', methods: ['GET', 'POST'])]
     public function show(Articles $article, Request $request,  EntityManagerInterface $entityManager): Response
     {

@@ -1,3 +1,4 @@
+<?php
 namespace App\Security;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;

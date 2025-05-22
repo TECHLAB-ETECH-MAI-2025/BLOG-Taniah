@@ -32,7 +32,7 @@
         </dl>
 
         <table class="table">
-            <tbody>
+            <tbody id="comments">
                 {% if article.comments|length > 0 %}
                     <tr>
                         <th colspan="2">Commentaire(s) sur cet article :</th>
@@ -60,14 +60,16 @@
         <div>
             <h5>Commentaires</h5>
 
-            {{ form_start(commentForm) }}
+            {{ form_start(commentForm,{
+                'attr':{'id':'commentForm'}}
+            ) }}
 
-                {{ form_widget(commentForm.author)}}
+                {{ form_widget(commentForm.author
+                ) }}
 
                 {{ form_widget(commentForm.content) }}
 
-                {{ form_widget(commentForm.createdAt)}}
-
+                
                 <div class="row">
                     <div class="col-12">
                         <button type="submit" class="btn btn-primary">Enregistrer</button>
@@ -77,5 +79,5 @@
         </div>
     </div>
 </div>
-                    
+
 {% endblock %}

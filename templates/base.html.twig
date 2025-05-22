@@ -14,6 +14,7 @@
 
         {% block javascripts %}
             {{ encore_entry_script_tags('datatables') }}
+            {{ encore_entry_script_tags('articles_list') }}
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
