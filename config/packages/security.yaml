@@ -21,6 +21,7 @@ security:
                 # "app_login" is the name of the route created previously
                 login_path: app_auth_login
                 check_path: app_auth_login
+                success_handler: App\Security\LoginSuccessHandler
             logout:
                 path: /logout
 
@@ -31,6 +32,10 @@ security:
             # switch_user: true
 
     # Easy way to control access for large sections of your site
+    access_control:
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/user, roles: ROLE_USER }
+        - { path: ^/login, roles: PUBLIC_ACCESS }
     # Note: Only the *first* access control that matches will be used
 
 when@test:
