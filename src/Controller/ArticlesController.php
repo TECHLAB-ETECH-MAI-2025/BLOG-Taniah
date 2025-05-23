@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Articles;
 use App\Form\ArticlesForm;
 use App\Repository\ArticlesRepository;
-
+use App\Entity\User;
 use App\Entity\Comment;
 use App\Form\CommentForm;
 use Doctrine\ORM\EntityManagerInterface;
@@ -14,10 +14,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Bundle\SecurityBundle\Security;
+
 
 #[Route('/articles')]
 final class ArticlesController extends AbstractController
 {
+    private Security $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
     #[Route(name: 'app_articles_index', methods: ['GET'])]
     public function index(ArticlesRepository $articlesRepository, Request $request, PaginatorInterface $paginator): Response
     {
@@ -66,6 +75,15 @@ final class ArticlesController extends AbstractController
 		$comment = new Comment();
 		$comment->setArticle($article);
 
+        $user = $this->security->getUser(); // L’utilisateur connecté ou null
+
+        if ($user) {
+            $username = $user->getUserIdentifier();
+        } else {
+            $username = 'anonyme';
+        }
+        $comment->setAuthor($username);
+
         // Création du formulaire
 		$form = $this->createForm(CommentForm::class, $comment);
 		$form->handleRequest($request);
@@ -89,6 +107,7 @@ final class ArticlesController extends AbstractController
 		}
         return $this->render('articles/show.html.twig', [
             'article' => $article,
+            'user_connecte' => $username,
             'commentForm' => $form->createView(),
         ]);
     }

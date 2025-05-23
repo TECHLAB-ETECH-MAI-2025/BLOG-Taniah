@@ -17,13 +17,15 @@
             <form action="{{ path('app_auth_login') }}" method="post">
                 <div class="form-group mb-4">
                     <label for="username" class="form-label">Email:</label>
-                    <input type="text" id="username" name="_username" class="form-control" value="{{ last_username }}" required autofocus>
+                    <input type="text" id="username" name="username" class="form-control" value="{{ last_username }}" required autofocus>
                 </div>
 
                 <div class="form-group mb-4">
                     <label for="password" class="form-label">Password:</label>
-                    <input type="password" id="password" name="_password" class="form-control" required>
+                    <input type="password" id="password" name="password" class="form-control" required>
                 </div>
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
 
                 <button type="submit" class="btn btn-primary w-100">Login</button>
             </form>

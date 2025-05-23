@@ -24,6 +24,6 @@ document.addEventListener('DOMContentLoaded',function(){
                 $form.find('textarea').val('');
             }
         })
-})
+    })
 
 })
