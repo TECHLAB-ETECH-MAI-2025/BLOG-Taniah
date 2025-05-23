@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded',function(){
             data: $form.serialize(),
             success: function(){
                 const content = $form.find('textarea').val();
-                const auteur = $form.find('#comment_form_author').val();
+                const auteur = window.loggedInUsername;
 
                 $('#comments').append(
                     '<tr>'+

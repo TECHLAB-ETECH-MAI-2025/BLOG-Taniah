@@ -3,6 +3,11 @@
 {% block title %}Articles{% endblock %}
 
 {% block body %}
+<script>
+    // Passage du username à une variable JS globale
+    window.loggedInUsername = "{{ user_connecte|e('js') }}";
+    console.log("Utilisateur connecté:", window.loggedInUsername);
+</script>
 
 <div class="card">
     <div class="card-header w-100 d-flex flex-row justify-content-between align-items-center">

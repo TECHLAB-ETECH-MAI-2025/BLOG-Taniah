@@ -15,6 +15,7 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\SecurityRequestAttributes;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\RememberMeBadge;
+use App\Entity\User;
 
 
 
@@ -51,6 +52,9 @@ class LoginFormAuthentificatorAuthenticator extends AbstractLoginFormAuthenticat
         
         $user = $token->getUser();
         $roles = $user->getRoles();
+
+        $username = $user->getUserIdentifier();
+        $request->getSession()->set('username', $username);
 
         if (in_array('ROLE_ADMIN', $roles)) {
             return new RedirectResponse($this->urlGenerator->generate('app_categories_index'));

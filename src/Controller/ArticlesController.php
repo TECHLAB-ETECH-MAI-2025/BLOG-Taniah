@@ -75,15 +75,9 @@ final class ArticlesController extends AbstractController
 		$comment = new Comment();
 		$comment->setArticle($article);
 
-        $user = $this->security->getUser(); // L’utilisateur connecté ou null
-
-        if ($user) {
-            $username = $user->getUserIdentifier();
-        } else {
-            $username = 'anonyme';
-        }
-        $comment->setAuthor($username);
-
+        $auteur = $request->getSession()->get('username');
+        dump($auteur); 
+        $comment->setAuthor($auteur);
         // Création du formulaire
 		$form = $this->createForm(CommentForm::class, $comment);
 		$form->handleRequest($request);
@@ -107,7 +101,7 @@ final class ArticlesController extends AbstractController
 		}
         return $this->render('articles/show.html.twig', [
             'article' => $article,
-            'user_connecte' => $username,
+            'user_connecte' => $auteur,
             'commentForm' => $form->createView(),
         ]);
     }
