@@ -41,13 +41,13 @@ class Articles
      * @var Collection<int, ArticleLike>
      */
     #[ORM\OneToMany(targetEntity: ArticleLike::class, mappedBy: 'article')]
-    private Collection $Likes;
+    private Collection $likes;
 
     public function __construct()
     {
         $this->categories = new ArrayCollection();
         $this->comments = new ArrayCollection();
-        $this->Likes = new ArrayCollection();
+        $this->likes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -150,13 +150,13 @@ class Articles
      */
     public function getLikes(): Collection
     {
-        return $this->Likes;
+        return $this->likes;
     }
 
     public function addLike(ArticleLike $like): static
     {
-        if (!$this->Likes->contains($like)) {
-            $this->Likes->add($like);
+        if (!$this->likes->contains($like)) {
+            $this->likes->add($like);
             $like->setArticle($this);
         }
 
@@ -165,7 +165,7 @@ class Articles
 
     public function removeLike(ArticleLike $like): static
     {
-        if ($this->Likes->removeElement($like)) {
+        if ($this->likes->removeElement($like)) {
             // set the owning side to null (unless already changed)
             if ($like->getArticle() === $this) {
                 $like->setArticle(null);

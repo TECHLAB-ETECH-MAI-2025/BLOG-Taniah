@@ -21,6 +21,12 @@
     <div class="card-body">
         <dl>
             <dd>{{ article.title }}</dd>
+            <dd>
+                <button id="like-btn" data-id="{{ article.id }}" class="btn btn-outline-primary">
+                    <i class="far fa-heart"></i>
+                <span id="like-count">{{ article.likes|length }}</span>
+                
+            </dd>
             <dd>{{ article.content }}</dd>
             <dt>Créé le </dt>
             <dd>{{ article.createdAt ? article.createdAt|date('Y-m-d H:i:s') : '' }}</dd>

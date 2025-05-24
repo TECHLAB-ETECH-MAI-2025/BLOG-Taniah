@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20250523114757 extends AbstractMigration
+final class Version20250523133144 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -21,13 +21,10 @@ final class Version20250523114757 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql(<<<'SQL'
-            CREATE TABLE article_like (id INT AUTO_INCREMENT NOT NULL, article_id INT DEFAULT NULL, create_at DATETIME NOT NULL COMMENT '(DC2Type:datetime_immutable)', user VARCHAR(50) DEFAULT NULL, INDEX IDX_1C21C7B27294869C (article_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
+            CREATE TABLE article_like (id INT AUTO_INCREMENT NOT NULL, article_id INT DEFAULT NULL, utilisateur VARCHAR(50) NOT NULL, creat_at DATETIME NOT NULL COMMENT '(DC2Type:datetime_immutable)', INDEX IDX_1C21C7B27294869C (article_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
         SQL);
         $this->addSql(<<<'SQL'
             ALTER TABLE article_like ADD CONSTRAINT FK_1C21C7B27294869C FOREIGN KEY (article_id) REFERENCES articles (id)
-        SQL);
-        $this->addSql(<<<'SQL'
-            ALTER TABLE user DROP is_veriifed, CHANGE email email VARCHAR(180) NOT NULL
         SQL);
     }
 
@@ -39,9 +36,6 @@ final class Version20250523114757 extends AbstractMigration
         SQL);
         $this->addSql(<<<'SQL'
             DROP TABLE article_like
-        SQL);
-        $this->addSql(<<<'SQL'
-            ALTER TABLE user ADD is_veriifed TINYINT(1) NOT NULL, CHANGE email email VARCHAR(50) NOT NULL
         SQL);
     }
 }

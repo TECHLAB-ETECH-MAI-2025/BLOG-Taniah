@@ -13,28 +13,40 @@ class ArticleLike
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\Column(length: 50)]
+    private ?string $utilisateur = null;
+
     #[ORM\Column]
-    private ?\DateTimeImmutable $createAt = null;
+    private ?\DateTimeImmutable $creatAt = null;
 
-    #[ORM\ManyToOne(inversedBy: 'Likes')]
+    #[ORM\ManyToOne]
     private ?Articles $article = null;
-
-    #[ORM\Column(length: 50, nullable: true)]
-    private ?string $user = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getCreateAt(): ?\DateTimeImmutable
+    public function getUtilisateur(): ?string
     {
-        return $this->createAt;
+        return $this->utilisateur;
     }
 
-    public function setCreateAt(\DateTimeImmutable $createAt): static
+    public function setUtilisateur(string $utilisateur): static
     {
-        $this->createAt = $createAt;
+        $this->utilisateur = $utilisateur;
+
+        return $this;
+    }
+
+    public function getCreatAt(): ?\DateTimeImmutable
+    {
+        return $this->creatAt;
+    }
+
+    public function setCreatAt(\DateTimeImmutable $creatAt): static
+    {
+        $this->creatAt = $creatAt;
 
         return $this;
     }
@@ -47,18 +59,6 @@ class ArticleLike
     public function setArticle(?Articles $article): static
     {
         $this->article = $article;
-
-        return $this;
-    }
-
-    public function getUser(): ?string
-    {
-        return $this->user;
-    }
-
-    public function setUser(?string $user): static
-    {
-        $this->user = $user;
 
         return $this;
     }

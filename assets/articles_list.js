@@ -13,12 +13,12 @@ document.addEventListener('DOMContentLoaded',function(){
             data: $form.serialize(),
             success: function(){
                 const content = $form.find('textarea').val();
-                const auteur = window.loggedInUsername;
+                const auteur = $form.find('#comment_form_author').val();
 
                 $('#comments').append(
                     '<tr>'+
                         '<td>'+content+'</td>'+
-                        par +'<td>'+auteur+'</td>'+
+                        'par' +'<td>'+auteur+'</td> le '+
                     '</tr>'
                 );
                 $form.find('textarea').val('');
