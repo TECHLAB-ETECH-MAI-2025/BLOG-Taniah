@@ -32,7 +32,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 success: function (data) {
                     console.log('Réponse reçue:', data);
                     
-                    // Mettre à jour l'icône et les classes du bouton
                     if (data.liked) {
                         likeBtn.html('<i class="fas fa-heart"></i> <span id="like-count">' + data.likesCount + '</span>');
                         likeBtn.removeClass('btn-outline-primary').addClass('btn-danger');
@@ -46,7 +45,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     console.error('Status:', status);
                     console.error('Response:', xhr.responseText);
                     
-                    // Afficher un message d'erreur à l'utilisateur
                     if (xhr.status === 401) {
                         alert('Vous devez être connecté pour liker un article');
                     } else {

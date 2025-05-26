@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded',function(){
                 {data: 'actions', orderable: false, searchable: false }
             ],
             language: {
-                url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/fr-FR.json'
+                url: 'https://cdn.datatables.net/plug-ins/2.3.1/i18n/fr-FR.json'
             },
 
         });
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded',function(){
                 {data: 'actions', orderable: false, searchable: false }
             ],
             language: {
-                url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/fr-FR.json'
+                url: 'https://cdn.datatables.net/plug-ins/2.3.1/i18n/fr-FR.json'
             },
 
         });
