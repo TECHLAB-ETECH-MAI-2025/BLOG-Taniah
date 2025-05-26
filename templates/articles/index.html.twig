@@ -3,6 +3,13 @@
 {% block title %}Articles index{% endblock %}
 
 {% block body %}
+    <style>
+        body {
+            background-color: #f0f4f8;
+        }
+       
+    </style>
+
     <div class="card">
         <div class="card-header w-100 d-flex flex-row justify-content-between align-items-center">
             <h5 class="card-title">Liste articles</h5>
@@ -10,6 +17,7 @@
                 <a href="{{ path('app_articles_new') }}" class="btn btn-success">Créer nouveau article</a>
             </div>
         </div>
+
 
         <div class="card-body">
             <table class="table text-center align-middle" id="matableArticles">
@@ -25,8 +33,7 @@
                 
                 </tbody>
             </table>
-
-           
         </div>
+
     </div>
 {% endblock %}

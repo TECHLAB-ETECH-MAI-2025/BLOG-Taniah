@@ -53,7 +53,7 @@ class LoginFormAuthentificatorAuthenticator extends AbstractLoginFormAuthenticat
         $user = $token->getUser();
         $roles = $user->getRoles();
 
-        $username = $user->getUserIdentifier();
+        $username = $user->getPseudo();
         $request->getSession()->set('username', $username);
 
         if (in_array('ROLE_ADMIN', $roles)) {

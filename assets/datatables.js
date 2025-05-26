@@ -20,9 +20,14 @@ document.addEventListener('DOMContentLoaded',function(){
                 {data: 'actions', orderable: false, searchable: false }
             ],
             language: {
-                url: 'https://cdn.datatables.net/plug-ins/2.3.1/i18n/fr-FR.json'
+                url: 'https://cdn.datatables.net/plug-ins/2.3.1/i18n/fr-FR.json',
+                search:"Rechercher 🔍 ",
+                paginate:{
+                    previous: "<<",
+                    next: ">>"
+                },
+                info: "Affichage de _START_/_TOTAL_ articles à _END_/_TOTAL_ articles"
             },
-
         });
     }
     
@@ -37,7 +42,13 @@ document.addEventListener('DOMContentLoaded',function(){
                 {data: 'actions', orderable: false, searchable: false }
             ],
             language: {
-                url: 'https://cdn.datatables.net/plug-ins/2.3.1/i18n/fr-FR.json'
+                url: 'https://cdn.datatables.net/plug-ins/2.3.1/i18n/fr-FR.json',
+                search:"Rechercher 🔍 ",
+                paginate:{
+                    previous: "<<",
+                    next: ">>"
+                },
+                info: "Affichage de _START_/_TOTAL_ articles à _END_/_TOTAL_ articles"
             },
 
         });
