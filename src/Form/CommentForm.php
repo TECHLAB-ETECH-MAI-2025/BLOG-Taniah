@@ -22,8 +22,9 @@ class CommentForm extends AbstractType
                 'label' => 'Contenu de l\'article',
                 'attr' => [
                     'class' => 'form-control',
-                    'rows' => 10,
-                    'placeholder' => 'Le contenu de votre article ...',
+                    'rows' => 3,
+                    'style' => 'width:60vw',
+                    'placeholder' => 'Votre commentaire ici',
                     'required' => true
                 ]
             ])

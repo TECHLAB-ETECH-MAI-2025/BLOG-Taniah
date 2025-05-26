@@ -11,8 +11,13 @@
 
 <div class="card">
     <div class="card-header w-100 d-flex flex-row justify-content-between align-items-center">
-        <h5 class="card-title">BLOG ARTICLES</h5>
+        <h5 class="card-title">BLOG - {{ article.title }}</h5>
         <div class="card-tool d-flex flex-row justify-content-between align-items-center gap-2">
+            <div>
+                <button id="like-btn" data-id="{{ article.id }}" class="btn btn-outline-primary">
+                    <i class="far fa-heart"></i>
+                <span id="like-count">{{ article.likes|length }}</span>
+            </div>
             <a href="{{ path('app_articles_index') }}" class="btn btn-primary">Voir la liste</a>
             {{ include('articles/_delete_form.html.twig') }}
             <a href="{{ path('app_articles_edit', {'id': article.id}) }}" class="btn btn-success">Modifier</a>
@@ -20,13 +25,6 @@
     </div>
     <div class="card-body">
         <dl>
-            <dd>{{ article.title }}</dd>
-            <dd>
-                <button id="like-btn" data-id="{{ article.id }}" class="btn btn-outline-primary">
-                    <i class="far fa-heart"></i>
-                <span id="like-count">{{ article.likes|length }}</span>
-                
-            </dd>
             <dd>{{ article.content }}</dd>
             <dt>Créé le </dt>
             <dd>{{ article.createdAt ? article.createdAt|date('Y-m-d H:i:s') : '' }}</dd>
@@ -42,12 +40,29 @@
             {% endif %}
         </dl>
 
+         <div>
+            <h5>Commentaires</h5>
+                {{ form_start(commentForm,{
+                    'attr':{'id':'commentForm'}}) }}
+            <div class="d-flex align-items-start gap-2">
+                        {{ form_widget(commentForm.author) }}
+                        {{ form_widget(commentForm.content) }}
+
+                    <div class="row">
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary align-self-center">Enregistrer</button>
+                        </div>
+                    </div>
+
+                {{ form_end(commentForm) }}
+            </div>
+            
+        </div>
+
         <table class="table">
             <tbody id="comments">
                 {% if article.comments|length > 0 %}
-                    <tr>
-                        <th colspan="2">Commentaire(s) sur cet article :</th>
-                    </tr>
+                    
                     {% for comment in article.comments %}
                         <tr>
                             <td>
@@ -67,24 +82,6 @@
                 {% endif %}
             </tbody>
         </table>
-
-        <div>
-            <h5>Commentaires</h5>
-
-            {{ form_start(commentForm,{
-                'attr':{'id':'commentForm'}}
-            ) }}
-
-                {{ form_widget(commentForm.author) }}
-                {{ form_widget(commentForm.content) }}
-
-                <div class="row">
-                    <div class="col-12">
-                        <button type="submit" class="btn btn-primary">Enregistrer</button>
-                    </div>
-                </div>
-            {{ form_end(commentForm) }}
-        </div>
     </div>
 </div>
 
