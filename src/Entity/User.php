@@ -21,6 +21,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 180)]
     private ?string $email = null;
 
+    #[ORM\Column(length: 50, unique: true)]
+    private ?string $pseudo = null;
     /**
      * @var list<string> The user roles
      */
@@ -50,6 +52,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getPseudo(): ?string
+    {
+        return (string)$this->pseudo;
+    }
+
+    public function setPseudo(string $pseudo): static
+    {
+        $this->pseudo = $pseudo;
+        return $this;
+    }
+
+    /**
+     * Alternative: utiliser le pseudo comme identifiant visuel
+     */
+    public function getDisplayName(): string
+    {
+        return $this->pseudo ?: $this->email;
+    }
+    
     /**
      * A visual identifier that represents this user.
      *

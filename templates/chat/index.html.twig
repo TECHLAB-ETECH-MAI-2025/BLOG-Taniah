@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Chat avec {{ receiver.email }}{% endblock %}
+
+{% block body %}
+    <h1>Chat avec {{ receiver.email }}</h1>
+    
+    <div class="messages-container" style="height: 400px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; margin-bottom: 20px;">
+        {% for message in messages %}
+            <div class="message" style="margin-bottom: 10px;">
+                <strong>{{ message.sender.email }} ({{ message.createdAt|date('H:i:s') }}):</strong>
+                {{ message.content }}
+            </div>
+        {% endfor %}
+    </div>
+    
+    {{ form_start(form, {'attr': {'id': 'chat-form'}}) }}
+        {{ form_widget(form) }}
+        <button id="chat_envoyer" type="submit">Envoyer</button>
+    {{ form_end(form) }}
+{% endblock %}

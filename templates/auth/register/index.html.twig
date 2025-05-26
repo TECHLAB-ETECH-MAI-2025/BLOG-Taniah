@@ -34,13 +34,7 @@
                     {{ form_errors(registrationForm.roles) }}
                 </div>
 
-                <div class="form-check mb-3">
-                    {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
-                    {{ form_label(registrationForm.agreeTerms, null, {'label_attr': {'class': 'form-check-label'}}) }}
-                    {{ form_errors(registrationForm.agreeTerms) }}
-                </div>
-
-                <button type="submit" class="btn btn-primary w-100">Register</button>
+                <button type="submit" class="btn btn-primary w-100">Créer</button>
 
             {{ form_end(registrationForm) }}
         </div>
