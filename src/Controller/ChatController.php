@@ -5,6 +5,7 @@ use App\Entity\Message;
 use App\Entity\User;
 use App\Form\MessageForm;
 use App\Repository\MessageRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,11 +18,9 @@ class ChatController extends AbstractController
 {
     #[Route('/{receiverId}', name: 'chat_index')]
     public function index(
-            int $receiverId,
-        MessageRepository $messageRepository,
-        EntityManagerInterface $entityManager,
-        Request $request
-    ): Response {
+            int $receiverId,MessageRepository $messageRepository,
+        EntityManagerInterface $entityManager,Request $request): Response 
+    {
         /** @var User $currentUser */
         $currentUser = $this->getUser();
         if (!$currentUser instanceof UserInterface) {
@@ -50,9 +49,7 @@ class ChatController extends AbstractController
         }
 
         return $this->render('chat/index.html.twig', [
-            'messages' => [
-                'date' => $messages->get
-            ],
+            'messages' => $messages,
             'success' => true,
             'receiver' => $receiver,
             'form' => $form->createView(),

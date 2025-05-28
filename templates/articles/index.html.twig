@@ -11,11 +11,21 @@
     </style>
 
     <div class="card">
-        <div class="card-header w-100 d-flex flex-row justify-content-between align-items-center">
-            <h5 class="card-title">Liste articles</h5>
-            <div class="card-tool">
-                <a href="{{ path('app_articles_new') }}" class="btn btn-success">Créer nouveau article</a>
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+            <h5 class="card-title m-0">Liste articles</h5>
+
+            <div class="d-flex align-items-center gap-2">
+                <select class="form-select form-select-sm w-auto" id="receiverSelect" name="receiverId">
+                    <option selected disabled value="">Démarrer discussion avec</option>
+                    {% for user in users %}
+                        {% if user.pseudo != user_connecte %}
+                            <option value="{{ user.id }}">{{ user.pseudo }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
             </div>
+
+            <a href="{{ path('app_articles_new') }}" class="btn btn-success">Créer un article</a>
         </div>
 
 
@@ -36,4 +46,17 @@
         </div>
 
     </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const select = document.getElementById('receiverSelect');
+
+        select.addEventListener('change', function () {
+            const receiverId = this.value;
+            if (receiverId) {
+                window.location.href = '/chat/' + receiverId;
+            }
+        });
+    });
+</script>
 {% endblock %}

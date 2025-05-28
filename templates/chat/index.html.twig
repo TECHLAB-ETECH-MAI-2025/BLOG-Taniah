@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Chat avec {{ receiver.email }}{% endblock %}
+{% block title %}Chat avec {{ receiver.pseudo }}{% endblock %}
 
 {% block body %}
-    <h1>Chat avec {{ receiver.email }}</h1>
+    <h1>Chat avec {{ receiver.pseudo }}</h1>
     
     <div class="messages-container" style="height: 400px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; margin-bottom: 20px;">
         {% for message in messages %}
             <div class="message" style="margin-bottom: 10px;">
-                <strong>{{ message.sender.email }} ({{ message.createdAt|date('H:i:s') }}):</strong>
+                <strong>{{ message.sender.pseudo }} ({{ message.createdAt|date('H:i:s') }}):</strong>
                 {{ message.content }}
             </div>
         {% endfor %}
