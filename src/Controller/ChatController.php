@@ -52,6 +52,7 @@ class ChatController extends AbstractController
             'messages' => $messages,
             'success' => true,
             'receiver' => $receiver,
+            'pseudo' => $currentUser,
             'form' => $form->createView(),
         ]);
     }

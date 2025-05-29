@@ -3,19 +3,142 @@
 {% block title %}Chat avec {{ receiver.pseudo }}{% endblock %}
 
 {% block body %}
-    <h1>Chat avec {{ receiver.pseudo }}</h1>
+<div class="container mt-4">
+    <div class="chat-header mb-4">
+        <h2 class="text-primary">
+            <i class="fas fa-comments me-2"></i>
+             {{ receiver.pseudo }}
+        </h2>
+    </div>
     
-    <div class="messages-container" style="height: 400px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; margin-bottom: 20px;">
+    <!-- Messages Container -->
+    <div class="messages-container mb-4" style="height: 500px; overflow-y: auto; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 15px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
         {% for message in messages %}
-            <div class="message" style="margin-bottom: 10px;">
-                <strong>{{ message.sender.pseudo }} ({{ message.createdAt|date('H:i:s') }}):</strong>
-                {{ message.content }}
-            </div>
+            {% if message.sender.id == app.user.id %}
+                <div class="message-sent d-flex justify-content-end mb-3">
+                    <div class="message-bubble sent" style="max-width: 70%; background: linear-gradient(135deg, #007bff 0%, #0056b3 100%); color: white; padding: 12px 16px; border-radius: 18px 18px 4px 18px; box-shadow: 0 2px 4px rgba(0,123,255,0.3);">
+                        <div class="message-content">{{ message.content }}</div>
+                        <div class="message-time" style="font-size: 0.75rem; opacity: 0.8; margin-top: 4px;">
+                            {{ message.createdAt|date('H:i') }}
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="message-received d-flex justify-content-start mb-3">
+                    <div class="message-bubble received" style="max-width: 70%; background: white; color: #333; padding: 12px 16px; border-radius: 18px 18px 18px 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border: 1px solid #e9ecef;">
+                        <div class="message-sender" style="font-weight: 600; font-size: 0.85rem; color: #6c757d; margin-bottom: 4px;">
+                            {{ message.sender.pseudo }}
+                        </div>
+                        <div class="message-content">{{ message.content }}</div>
+                        <div class="message-time" style="font-size: 0.75rem; color: #6c757d; margin-top: 4px;">
+                            {{ message.createdAt|date('H:i') }}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
         {% endfor %}
     </div>
     
-    {{ form_start(form, {'attr': {'id': 'chat-form'}}) }}
-        {{ form_widget(form) }}
-        <button id="chat_envoyer" type="submit">Envoyer</button>
-    {{ form_end(form) }}
+    <!-- Formulaire d'envoi -->
+    <div class="chat-input-container" style="background: white; border-radius: 25px; padding: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); border: 1px solid #e9ecef;">
+        {{ form_start(form, {'attr': {'id': 'chat-form', 'class': 'd-flex align-items-end gap-2'}}) }}
+            <div class="flex-grow-1">
+                {{ form_widget(form.content, {
+                    'attr': {
+                        'class': 'form-control border-0',
+                        'placeholder': 'Tapez votre message...',
+                        'rows': '1',
+                        'style': 'resize: none; box-shadow: none; background: transparent; min-height: 40px;'
+                    }
+                }) }}
+            </div>
+            <button type="submit" id="chat_envoyer" class="btn btn-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 44px; height: 44px; margin-bottom: 2px;">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        {{ form_end(form) }}
+    </div>
+</div>
+
+<style>
+/* Auto-scroll vers le bas */
+.messages-container {
+    scroll-behavior: smooth;
+}
+
+/* Animation pour les nouveaux messages */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.message-sent, .message-received {
+    animation: fadeInUp 0.3s ease-out;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .message-bubble {
+        max-width: 85% !important;
+    }
+    
+    .chat-input-container {
+        border-radius: 20px;
+        padding: 6px;
+    }
+}
+
+/* Textarea auto-resize */
+.form-control:focus {
+    box-shadow: none !important;
+    border-color: transparent !important;
+}
+
+/* Hover effects */
+.btn-primary:hover {
+    transform: scale(1.05);
+    transition: transform 0.2s ease;
+}
+
+.message-bubble:hover {
+    transform: translateY(-1px);
+    transition: transform 0.2s ease;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // Auto-scroll vers le bas au chargement
+    const messagesContainer = document.querySelector('.messages-container');
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    
+    // Auto-resize du textarea
+    const textarea = document.querySelector('textarea');
+    if (textarea) {
+        textarea.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+        });
+        
+        // Envoyer avec Ctrl+Enter
+        textarea.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 'Enter') {
+                document.getElementById('chat-form').submit();
+            }
+        });
+    }
+    
+    // Focus automatique sur le textarea
+    if (textarea) {
+        textarea.focus();
+    }
+
+});
+</script>
 {% endblock %}

@@ -28,6 +28,11 @@ document.addEventListener('DOMContentLoaded',function(){
                 },
                 info: "Affichage de _START_/_TOTAL_ articles à _END_/_TOTAL_ articles"
             },
+            initComplete: function () {
+            $('#maTable_length').appendTo('#datatable-length').show();
+            $('#maTable_filter').appendTo('#datatable-search').show();
+        }
+        
         });
     }
     
@@ -50,6 +55,7 @@ document.addEventListener('DOMContentLoaded',function(){
                 },
                 info: "Affichage de _START_/_TOTAL_ articles à _END_/_TOTAL_ articles"
             },
+            dom: '<"row justify-content-center mb-3"<"col-md-auto"l><"col-md-auto"f>>rt<"row mt-3"<"col-md-6"i><"col-md-6 text-end"p>>'
 
         });
     }
