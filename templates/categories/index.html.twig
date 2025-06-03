@@ -209,10 +209,11 @@
 
 <div class="container-fluid" id="mainContent">
     <div class="main-header">
-        <h1 class="page-title">
+        <h4 class="page-title">
             <i class="fas fa-newspaper me-2"></i>
             Mes Catégories
-        </h1>
+        </h4>
+        
 
                 <!-- Zone centrée pour les filtres DataTables -->
         <div class="datatable-controls d-flex justify-content-center align-items-center gap-3 flex-wrap my-3">
@@ -221,6 +222,10 @@
         </div>
 
         <div class="header-actions">
+            <a href="{{ path('app_articles_index') }}" class="btn-create">
+                <i class="fas fa-newspaper me-2"></i>
+                Mes articles
+            </a>
             <a href="{{ path('app_categories_new') }}" class="btn-create">
                 <i class="fas fa-plus me-2"></i>
                 Créer une catégorie
