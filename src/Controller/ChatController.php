@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
+use  Symfony\Component\Mercure\HubInterface;
+use Symfony\Component\Mercure\Update;
 
 #[Route('/chat')]
 class ChatController extends AbstractController
@@ -19,7 +21,7 @@ class ChatController extends AbstractController
     #[Route('/{receiverId}', name: 'chat_index')]
     public function index(
             int $receiverId,MessageRepository $messageRepository,
-        EntityManagerInterface $entityManager,Request $request): Response 
+        EntityManagerInterface $entityManager,Request $request,HubInterface $hub): Response 
     {
         /** @var User $currentUser */
         $currentUser = $this->getUser();
@@ -35,6 +37,7 @@ class ChatController extends AbstractController
         $messages = $messageRepository->findConversation($currentUser->getId(), $receiverId);
 
         $message = new Message();
+
         $form = $this->createForm(MessageForm::class, $message);
         $form->handleRequest($request);
 
@@ -44,6 +47,17 @@ class ChatController extends AbstractController
             $message->setCreatedAt(new \DateTimeImmutable());
             $entityManager->persist($message);
             $entityManager->flush();
+
+            $topic="/chat/{$receiverId}";
+            var_dump($topic);
+
+            $data=[
+                'sender'=>$currentUser->getPseudo(),
+                'message'=>$message->getContent(),
+                'timestamp'=>$message->getCreatedAt()->format('H:i'),
+            ];
+            $update=new Update($topic,json_encode($data));
+            $hub->publish($update);
 
             return $this->redirectToRoute('chat_index', ['receiverId' => $receiverId]);
         }

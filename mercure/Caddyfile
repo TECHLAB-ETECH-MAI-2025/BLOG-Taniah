@@ -1,0 +1,25 @@
+{
+	auto_https off
+}
+
+:8080 {
+	route {
+		# Test simple dabord
+		respond /test "Test OK" 200
+		respond /healthz "OK" 200
+		
+		# Page daccueil
+		respond / "Mercure Hub is running!" 200
+		
+		# Configuration Mercure
+		mercure {
+			publisher_jwt "ChangeThisMercureHubJWTSecretKey" 
+			subscriber_jwt "ChangeThisMercureHubJWTSecretKey" 
+			anonymous
+			cors_origins "*"
+		}
+		
+		# Fallback pour les autres URLs
+		respond "Not Found" 404
+	}
+}

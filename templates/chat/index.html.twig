@@ -11,7 +11,6 @@
         </h2>
     </div>
     
-    <!-- Messages Container -->
     <div class="messages-container mb-4" style="height: 500px; overflow-y: auto; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 15px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
         {% for message in messages %}
             {% if message.sender.id == app.user.id %}
@@ -58,6 +57,7 @@
         {{ form_end(form) }}
     </div>
 </div>
+<input value={{ pseudo.id }} id="idUser" type="hidden"/>
 
 <style>
 /* Auto-scroll vers le bas */
