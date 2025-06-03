@@ -2,17 +2,197 @@
 
 {% block title %}Modification article{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            --primary-blue: #007bff;
+            --secondary-gray: #6c757d;
+            --hover-blue: #0056b3;
+            --shadow-light: 0 2px 10px rgba(0, 123, 255, 0.1);
+            --shadow-medium: 0 4px 20px rgba(0, 123, 255, 0.15);
+        }
+
+        body {
+            background: var(--primary-gradient);
+            min-height: 100vh;
+        }
+
+        .custom-card {
+            background: rgba(255, 255, 255, 0.95);
+            border: none;
+            border-radius: 15px;
+            box-shadow: var(--shadow-medium);
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            animation: slideInFromTop 0.6s ease-out;
+        }
+
+        .custom-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 123, 255, 0.2);
+        }
+
+        .custom-card-header {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #0056b3 100%);
+            color: white;
+            border: none;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .custom-card-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            pointer-events: none;
+        }
+
+        .custom-card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 0;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        .custom-card-title::before {
+            content: '\f02d';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            margin-right: 0.5rem;
+            opacity: 0.8;
+        }
+
+        .card-tool {
+            position: relative;
+            z-index: 1;
+        }
+
+        .custom-btn {
+            border-radius: 8px;
+            padding: 0.5rem 1.2rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .custom-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .custom-btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary-custom {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-primary-custom:hover {
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-list::before {
+            content: '\f03a';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            margin-right: 0.5rem;
+        }
+
+        .custom-card-body {
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.8);
+            position: relative;
+            animation: fadeIn 0.8s ease-out 0.2s both;
+        }
+
+        .custom-card-body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary-blue), transparent);
+        }
+
+        @keyframes slideInFromTop {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .custom-card-header {
+                padding: 1rem;
+            }
+            
+            .custom-card-header .d-flex {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: stretch !important;
+            }
+            
+            .card-tool {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+{% endblock %}
+
 {% block body %}
-    <div class="card">
-        <div class="card-header w-100 d-flex flex-row justify-content-between align-items-center">
-            <h5 class="card-title">Modifier article</h5>
-            <div class="card-tool d-flex flex-row justify-content-between align-items-center gap-2">
-                <a href="{{ path('app_articles_index') }}" class="btn btn-primary">Voir la liste</a>
-                {{ include('articles/_delete_form.html.twig') }}
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="custom-card">
+                    <div class="custom-card-header w-100 d-flex flex-row justify-content-between align-items-center">
+                        <h5 class="custom-card-title">Modifier article</h5>
+                        <div class="card-tool d-flex flex-row justify-content-between align-items-center gap-2">
+                            <a href="{{ path('app_articles_index') }}" class="custom-btn btn-primary-custom btn-list">Voir la liste</a>
+                                {{ include('articles/_delete_form.html.twig')}}
+                        </div>
+                    </div>
+                    <div class="custom-card-body">
+                        {{ include('articles/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="card-body">
-            {{ include('articles/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
-        </div>
+        
     </div>
 {% endblock %}
