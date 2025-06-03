@@ -3,10 +3,31 @@
 {% block title %}Inscription{% endblock %}
 
 {% block body %}
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <h4 class="mb-4 text-center">Inscription</h4>
+
+<style>
+    body {
+        background-color: #f0f4f8;
+    }
+    .login-container {
+        max-width: 400px;
+        margin: 60px auto;
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    .btn-primary {
+        background-color: #4682b4;
+        border-color: #4682b4;
+    }
+    .btn-primary:hover {
+        background-color: #3b6d99;
+        border-color: #3b6d99;
+    }
+</style>
+
+        <div class="login-container">
+            <h4 class="text-center mb-4 text-primary">Inscription</h4>
 
             {% if registrationForm.vars.errors|length > 0 %}
                 <div class="alert alert-danger">
@@ -17,30 +38,30 @@
             {{ form_start(registrationForm, {'attr': {'class': 'needs-validation'}}) }}
 
                 <div class="mb-3">
+                    {{ form_label(registrationForm.pseudo) }}
+                        {{ form_widget(registrationForm.pseudo, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(registrationForm.pseudo) }}
+                </div>
+
+                <div class="mb-3">
                     {{ form_label(registrationForm.email) }}
-                    {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
                     {{ form_errors(registrationForm.email) }}
                 </div>
 
                 <div class="mb-3">
-                    {{ form_label(registrationForm.plainPassword, 'Password') }}
-                    {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_label(registrationForm.plainPassword, 'Mot de passe ') }}
+                        {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
                     {{ form_errors(registrationForm.plainPassword) }}
                 </div>
 
                 <div class="mb-3">
                     {{ form_label(registrationForm.roles) }}
-                    {{ form_widget(registrationForm.roles, {'attr': {'class': 'form-select'}}) }}
+                        {{ form_widget(registrationForm.roles, {'attr': {'class': 'form-select'}}) }}
                     {{ form_errors(registrationForm.roles) }}
                 </div>
 
-                <div class="form-check mb-3">
-                    {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
-                    {{ form_label(registrationForm.agreeTerms, null, {'label_attr': {'class': 'form-check-label'}}) }}
-                    {{ form_errors(registrationForm.agreeTerms) }}
-                </div>
-
-                <button type="submit" class="btn btn-primary w-100">Register</button>
+                <button type="submit" class="btn btn-primary w-100">Enregistrer</button>
 
             {{ form_end(registrationForm) }}
         </div>

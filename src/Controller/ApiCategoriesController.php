@@ -28,7 +28,7 @@ final class ApiCategoriesController extends AbstractController
                 'titre' => $categorie->getTitre(),
                 'description' => $categorie->getDescription(),
                 'date' => $categorie->getCreatedAt(),
-                'actions' => '<div class="d-flex flex-row justify-content-end align-items-center gap-2">'
+                'actions' => '<div class="d-flex flex-row justify-content-center align-items-center gap-2">'
                         . '<a href="' .$url_show . '" class="btn btn-primary">Voir</a>'
                         . '<a href="' .$url_edit . '" class="btn btn-success">Modifier</a>'
                     . '</div>'

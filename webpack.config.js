@@ -24,6 +24,7 @@ Encore
     .addEntry('datatables', './assets/datatables.js')
     .addEntry('articles_list', './assets/articles_list.js')
     .addEntry('like', './assets/like.js')
+    .addEntry('chat', './assets/chat.js')
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
 

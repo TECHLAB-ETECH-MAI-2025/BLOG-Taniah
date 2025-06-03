@@ -1,20 +1,35 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Categories{% endblock %}
+{% block title %}Nouveau Categorie{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <div class="mx-auto mb-3">
-            <h4>Création nouvelle catégorie</h4>
+    <div class="container-fluid min-vh-100" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+    <div class="container py-5">
+        <!-- Header Section -->
+        <div class="row justify-content-center mb-4">
+            <div class="col-lg-8">
+                <div class="card shadow-lg border-0" style="border-radius: 15px; backdrop-filter: blur(10px); background: rgba(255, 255, 255, 0.9);">
+                    <div class="card-header text-center py-4" style="background: linear-gradient(135deg, #007bff 0%, #0056b3 100%); border-radius: 15px 15px 0 0;">
+                        <h4 class="display-6 text-white mb-0 fw-bold">
+                            <i class="fas fa-plus-circle me-3"></i>Création nouvelle catégorie</h1>
+                        </h4>
+                    </div>
 
-        {{ include('categories/_form.html.twig') }}
+                    <div class="card-body p-4">
+                        <div class="text-center mb-4">
+                            <a href="{{ path('app_categories_index') }}" class="btn btn-outline-primary btn-lg px-4 py-2" 
+                               style="border-radius: 25px; transition: all 0.3s ease; border: 2px solid #007bff;">
+                                <i class="fas fa-list me-2"></i>Voir la liste
+                            </a>
+                        </div>
 
-        <div class="container">
-            <div class="mx-auto">
-                 <a href="{{ path('app_categories_index') }}" class="btn btn-primary">Voir la liste</a>
+                        <div class="form-container" style="background: rgba(248, 249, 250, 0.6); border-radius: 12px; padding: 2rem; border: 1px solid rgba(0, 123, 255, 0.1);">
+                            {{ include('categories/_form.html.twig') }}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        
-        </div>
+    </div>
     </div>
 {% endblock %}

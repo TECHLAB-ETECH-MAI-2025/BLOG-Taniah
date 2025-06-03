@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Articles;
 use App\Form\ArticlesForm;
 use App\Repository\ArticlesRepository;
+use App\Repository\UserRepository;
 use App\Entity\User;
 use App\Entity\Comment;
 use App\Form\CommentForm;
@@ -28,24 +29,14 @@ final class ArticlesController extends AbstractController
         $this->security = $security;
     }
     #[Route(name: 'app_articles_index', methods: ['GET'])]
-    public function index(ArticlesRepository $articlesRepository, Request $request, PaginatorInterface $paginator): Response
+    public function index(ArticlesRepository $articlesRepository, Request $request, UserRepository $userRepository): Response
     {
-        // $query = $articlesRepository
-        //     ->createQueryBuilder('a')
-        //     ->getQuery();
-
-        // $pagination = $paginator->paginate(
-        //     $query,
-        //     $request->query->getInt('page', 1),
-        //     1
-        // );
-
-        return $this->render('articles/index.html.twig'
-        // ,[
-        //     'success'=>true,
-        //     // 'data'=>$pagination,
-        // ]
-        );
+        
+        $user_connecte=$request->getSession()->get('username');
+        $users = $userRepository->findAll();
+        return $this->render('articles/index.html.twig',[
+            'users'=>$users,'user_connecte'=>$user_connecte,
+        ]);
     }
 
     #[Route('/new', name: 'app_articles_new', methods: ['GET', 'POST'])]

@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Categories;
 use App\Form\CategoriesForm;
 use App\Repository\CategoriesRepository;
+use App\Repository\UserRepository;
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,7 +19,7 @@ use Knp\Component\Pager\PaginatorInterface;
 final class CategoriesController extends AbstractController
 {
     #[Route(name: 'app_categories_index', methods: ['GET'])]
-    public function index(CategoriesRepository $categoriesRepository, PaginatorInterface $paginator, Request $request): Response
+    public function index(CategoriesRepository $categoriesRepository,  UserRepository $userRepository, Request $request): Response
     {
         // $query = $categoriesRepository
         //     ->createQueryBuilder('a')
@@ -28,9 +30,12 @@ final class CategoriesController extends AbstractController
         //     $request->query->getInt('page', 1),
         //     1
         // );
+        $user_connecte=$request->getSession()->get('username');
+        $users = $userRepository->findAll();
 
         return $this->render('categories/index.html.twig',[
             'success'=>true,
+            'users'=>$users,'user_connecte'=>$user_connecte,
             // 'data'=>$pagination,
         ]);
     }

@@ -15,12 +15,17 @@ document.addEventListener('DOMContentLoaded',function(){
                 const content = $form.find('textarea').val();
                 const auteur = $form.find('#comment_form_author').val();
 
-                $('#comments').append(
-                    '<tr>'+
-                        '<td>'+content+'</td>'+
-                        'par' +'<td>'+auteur+'</td> le '+
-                    '</tr>'
-                );
+                $('#comments').append(`
+                        <tr>
+                        <td>${content}</td>
+                        <td> par ${auteur} le ${new Date().toLocaleTimeString([],{
+                            day: '2-digit',
+                            month: '2-digit',
+                            year: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            hour12: false})}</td> 
+                    </tr>`);
                 $form.find('textarea').val('');
             }
         })

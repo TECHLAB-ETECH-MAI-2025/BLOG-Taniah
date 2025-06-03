@@ -14,14 +14,12 @@ use App\Repository\ArticleLikeRepository;
 
 final class ArticleLikeController extends AbstractController
 {
-    // Changement de /article/ vers /articles/ pour correspondre au JS
     #[Route('/articles/{id}/like', name: 'app_article_like', methods: ['POST'])]
     public function like(Request $request, Articles $article, EntityManagerInterface $entityManager): JsonResponse
     {
         try {
             $username = $request->getSession()->get('username');
 
-            // Vérification si l'utilisateur est connecté
             if (!$username) {
                 return new JsonResponse([
                     'error' => 'Utilisateur non connecté'
@@ -36,10 +34,9 @@ final class ArticleLikeController extends AbstractController
 
             if (!$existing) {
                 $like = new ArticleLike();
-                $like->setArticle($article);
-                $like->setUtilisateur($username);
-                // Temporairement commenté pour tester
-                                $like->setCreatAt(new \DateTimeImmutable());
+                    $like->setArticle($article);
+                    $like->setUtilisateur($username);
+                    $like->setCreatAt(new \DateTimeImmutable());
 
                 $entityManager->persist($like);
                 $entityManager->flush();
