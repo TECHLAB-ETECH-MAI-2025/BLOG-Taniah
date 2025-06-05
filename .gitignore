@@ -30,3 +30,6 @@
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
+
+#évite de versionner les dépendances NPM.
+/front-react/node_modules
