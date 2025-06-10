@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import DataTable from 'react-data-table-component';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const ArticlesIndex = () => {
   const [discussionPanelActive, setDiscussionPanelActive] = useState(false);
@@ -11,18 +11,29 @@ const ArticlesIndex = () => {
   const [articleEnCours, setArticleEnCours] = useState(null);
   const [formData, setFormData] = useState({titre:'' ,contenu:''});
   const [editId, setEditId] = useState(null);
+  const [users, setUsers] = useState([]);
 
   const navigate = useNavigate();
-  // EXEMPLE DE USERS
-  const users = [
-    { id: 1, pseudo: 'JohnDoe' },
-    { id: 2, pseudo: 'JaneSmith' },
-    { id: 3, pseudo: 'AliceWonder' },
-    { id: 4, pseudo: 'BobBuilder' }
-  ];
+  // // EXEMPLE DE USERS
+  // const users = [
+  //   { id: 1, pseudo: 'JohnDoe' },
+  //   { id: 2, pseudo: 'JaneSmith' },
+  //   { id: 3, pseudo: 'AliceWonder' },
+  //   { id: 4, pseudo: 'BobBuilder' }
+  // ];
+
+  useEffect(() => {
+    fetch('http://localhost:8000/api/users')
+      .then(response => response.json())
+      .then(data => {
+        console.log('Données reçues :', data);
+        setUsers(data.member || []);
+      });
+  }, []);
+
+
 
   const userConnecte = 'CurrentUser';
-
   const handleDiscussionToggle = () => {
     setDiscussionPanelActive(true);
     setOverlayActive(true);
@@ -376,7 +387,7 @@ const ArticlesIndex = () => {
               <div style={styles.userAvatar}>
                 {user.pseudo.slice(0, 2).toUpperCase()}
               </div>
-              <div>{user.pseudo}</div>
+              <div><Link to={"/chat/" + user.id + "/show"}>{user.pseudo}</Link></div>
             </li>
           ))}
         </ul>

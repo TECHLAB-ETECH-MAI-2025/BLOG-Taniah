@@ -4,6 +4,7 @@ import LoginForm from './auth/login';
 import ArticleIndex from './articles/index';
 import ArticleShow from './articles/show';
 import ArticleEdit from './articles/edit';
+import ChatShow from './chat/show';
 
 function App() {
   
@@ -15,6 +16,7 @@ function App() {
         <Route path="/articles" element={<ArticleIndex />} />
         <Route path="/articles/:id/show" element={<ArticleShow />} />
         <Route path="/articles/:id/edit" element={<ArticleEdit />} />
+        <Route path="/chat/:id/show" element={<ChatShow />} />
       </Routes>
     </BrowserRouter>
   )
