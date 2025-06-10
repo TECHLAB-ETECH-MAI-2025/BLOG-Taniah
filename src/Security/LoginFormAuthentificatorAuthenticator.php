@@ -5,6 +5,7 @@ namespace App\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Http\Authenticator\AbstractLoginFormAuthenticator;
@@ -16,8 +17,7 @@ use Symfony\Component\Security\Http\SecurityRequestAttributes;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\RememberMeBadge;
 use App\Entity\User;
-
-
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class LoginFormAuthentificatorAuthenticator extends AbstractLoginFormAuthenticator
 {
@@ -38,7 +38,7 @@ class LoginFormAuthentificatorAuthenticator extends AbstractLoginFormAuthenticat
             new UserBadge($email),
             new PasswordCredentials($mot_de_passe),
             [
-                new CsrfTokenBadge('authenticate', $request->request->get('_csrf_token')),  
+                //new CsrfTokenBadge('authenticate', $request->request->get('_csrf_token')),  
                 new RememberMeBadge(),          
             ]
         );
@@ -47,25 +47,64 @@ class LoginFormAuthentificatorAuthenticator extends AbstractLoginFormAuthenticat
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
-            return new RedirectResponse($targetPath);
+            return new JsonResponse([
+                'success' => true,
+                'data' => [
+                    'url' => $targetPath,
+                ],
+            ]);
         }
         
         $user = $token->getUser();
         $roles = $user->getRoles();
 
-        $username = $user->getPseudo();
-        $request->getSession()->set('username', $username);
+        // $username = $user->getPseudo();
+        // $request->getSession()->set('username', $username);
 
         if (in_array('ROLE_ADMIN', $roles)) {
-            return new RedirectResponse($this->urlGenerator->generate('app_categories_index'));
+            return new JsonResponse([
+                'success' => true,
+                'data' => [
+                    'url' => $this->urlGenerator->generate('app_categories_index'),
+                ],
+            ]);
         }
 
         if (in_array('ROLE_USER', $roles)) {
-            return new RedirectResponse($this->urlGenerator->generate('app_articles_index'));
+            return new JsonResponse([
+                'success' => true,
+                'data' => [
+                    'url' => $this->urlGenerator->generate('app_articles_index'),
+                ],
+            ]);
+        }
+        
+        return new JsonResponse([
+            'success' => false,
+            'message' => "Role inconnu",
+            'data' => [
+                'url' => $this->urlGenerator->generate('app_auth_login'),
+            ],
+        ]);
+        
+    }
+
+    
+    public function onAuthenticationFailure(Request $request, AuthenticationException $exception): Response
+    {
+        if ($request->hasSession()) {
+            $request->getSession()->set(SecurityRequestAttributes::AUTHENTICATION_ERROR, $exception);
         }
 
-        return new RedirectResponse($this->urlGenerator->generate('app_auth_login'));
-        
+        $url = $this->getLoginUrl($request);
+
+        return new JsonResponse([
+            'success' => false,
+            'message' => $exception->getMessage(),
+            'data' => [
+                'url' => $url
+            ],
+        ]);
     }
 
     protected function getLoginUrl(Request $request): string

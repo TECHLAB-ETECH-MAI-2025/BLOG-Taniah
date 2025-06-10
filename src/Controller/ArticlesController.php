@@ -67,8 +67,7 @@ final class ArticlesController extends AbstractController
 		$comment->setArticle($article);
 
         $auteur = $request->getSession()->get('username');
-        dump($auteur); 
-        $comment->setAuthor($auteur);
+        $comment->setAuthor($auteur || '');
         // Création du formulaire
 		$form = $this->createForm(CommentForm::class, $comment);
 		$form->handleRequest($request);

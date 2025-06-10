@@ -1,35 +1,23 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import SignForm from './auth/register';
+import LoginForm from './auth/login';
+import ArticleIndex from './articles/index';
+import ArticleShow from './articles/show';
+import ArticleEdit from './articles/edit';
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<SignForm />} />
+        <Route path="/login" element={<LoginForm />} />
+        <Route path="/articles" element={<ArticleIndex />} />
+        <Route path="/articles/:id/show" element={<ArticleShow />} />
+        <Route path="/articles/:id/edit" element={<ArticleEdit />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
-export default App
+export default App;

@@ -1,0 +1,19 @@
+body {
+        background-color: #f0f4f8;
+    }
+    .login-container {
+        max-width: 400px;
+        margin: 60px auto;
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    .btn-primary {
+        background-color: #4682b4;
+        border-color: #4682b4;
+    }
+    .btn-primary:hover {
+        background-color: #3b6d99;
+        border-color: #3b6d99;
+    }
