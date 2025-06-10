@@ -2,12 +2,16 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\CommentRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ApiResource()]
+#[ApiFilter(SearchFilter::class, properties: ['article.id' => 'exact'])]
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
 class Comment
 {
@@ -18,7 +22,7 @@ class Comment
 
     #[ORM\Column(length: 255)]
     private ?string $author = null;
-
+    
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $content = null;
 
@@ -27,6 +31,12 @@ class Comment
 
     #[ORM\ManyToOne(inversedBy: 'comments')]
     private ?Articles $article = null;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime(); // set automatically
+    }
+
 
     public function getId(): ?int
     {
