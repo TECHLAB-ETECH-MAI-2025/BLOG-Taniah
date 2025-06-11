@@ -14,14 +14,7 @@ const ArticlesIndex = () => {
   const [users, setUsers] = useState([]);
 
   const navigate = useNavigate();
-  // // EXEMPLE DE USERS
-  // const users = [
-  //   { id: 1, pseudo: 'JohnDoe' },
-  //   { id: 2, pseudo: 'JaneSmith' },
-  //   { id: 3, pseudo: 'AliceWonder' },
-  //   { id: 4, pseudo: 'BobBuilder' }
-  // ];
-
+ 
   useEffect(() => {
     fetch('http://localhost:8000/api/users')
       .then(response => response.json())
@@ -30,7 +23,6 @@ const ArticlesIndex = () => {
         setUsers(data.member || []);
       });
   }, []);
-
 
 
   const userConnecte = 'CurrentUser';
@@ -50,7 +42,7 @@ const ArticlesIndex = () => {
 
 //   ALLER DANS LA DISCUSSION
   const handleUserClick = (userId) => {
-    window.location.href = `/chat/${userId}`;
+    window.location.href = `/chat/${userId}/show`;
   };
 
 
@@ -324,8 +316,10 @@ const ArticlesIndex = () => {
                 e.target.style.transform = 'translateY(0)';
               }}
             >
-              <i className="fas fa-plus" style={{marginRight: '8px'}}></i>
-              Créer un article
+              <Link style={{color:'white'}} to={'/articles/new'}><i className="fas fa-plus" style={{marginRight: '8px'}}></i> Créer un article</Link>
+              
+              
+             
             </button>
             
             <button 

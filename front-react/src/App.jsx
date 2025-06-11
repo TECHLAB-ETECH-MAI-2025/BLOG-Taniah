@@ -5,6 +5,7 @@ import ArticleIndex from './articles/index';
 import ArticleShow from './articles/show';
 import ArticleEdit from './articles/edit';
 import ChatShow from './chat/show';
+import ArtcileNew from './articles/new';
 
 function App() {
   
@@ -17,6 +18,7 @@ function App() {
         <Route path="/articles/:id/show" element={<ArticleShow />} />
         <Route path="/articles/:id/edit" element={<ArticleEdit />} />
         <Route path="/chat/:id/show" element={<ChatShow />} />
+        <Route path='/articles/new' element={<ArtcileNew/>}/>
       </Routes>
     </BrowserRouter>
   )
