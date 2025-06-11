@@ -74,26 +74,22 @@ const SignForm = () => {
     btnprimary: {
         background: '#4682b4',
         borderColor: '#4682b4',
+        color: 'white'
     }
-    // btnprimary:hover :{
-    //     background-color: #3b6d99;
-    //     border-color: #3b6d99;
-    // }
   }
 
   return (
   <div style={styles.body}>
     <form onSubmit={handleSubmit(onSubmit)} style={styles.logincontainer}>
-      <h2>Formulaire d'inscription</h2>
-
-      <div>
-        <label>Pseudo :</label>
-        <input {...register('pseudo', { required: 'Pseudo requis' })} />
+      <h2 className="text-center mb-4 text-primary">Inscription</h2>
+      <div className="mb-3">
+        <label>Pseudo </label>
+        <input {...register('pseudo', { required: 'Pseudo requis' })} className='form-control'/>
           {errors.pseudo && <span style={{ color: 'red' }}>{errors.nom.message}</span>}
       </div>
 
-      <div>
-        <label>Email :</label>
+      <div className="mb-3"> 
+        <label>Email </label>
         <input
           type="email"
           {...register('email', {
@@ -102,13 +98,13 @@ const SignForm = () => {
               value: /^\S+@\S+$/i,
               message: 'Email invalide'
             }
-          })}
+          })} className='form-control'
         />
         {errors.email && <span style={{ color: 'red' }}>{errors.email.message}</span>}
       </div>
 
-      <div>
-        <label>Mot de passe :</label>
+      <div className="mb-3"> 
+        <label>Mot de passe </label>
         <input
           type="password"
           {...register('plainPassword', {
@@ -117,7 +113,7 @@ const SignForm = () => {
               value: 6,
               message: '6 caractères minimum'
             }
-          })}
+          })} className='form-control'
         />
         {errors.plainpassword && <span style={{ color: 'red' }}>{errors.plainpassword.message}</span>}
       </div>
@@ -137,7 +133,7 @@ const SignForm = () => {
           )}
       </div>
 
-      <button type="submit" style={styles.btnprimary}>
+      <button type="submit" className='btn w-100' style={styles.btnprimary}>
         S'inscrire
       </button>
     </form>

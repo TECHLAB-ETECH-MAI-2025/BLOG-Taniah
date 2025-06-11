@@ -6,6 +6,7 @@ import ArticleShow from './articles/show';
 import ArticleEdit from './articles/edit';
 import ChatShow from './chat/show';
 import ArtcileNew from './articles/new';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   

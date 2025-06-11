@@ -3,8 +3,8 @@ import { useParams } from 'react-router-dom';
 
 function ChatShow() {
   const { id } = useParams();
-    const [user, setUser] = useState(null);
-    const [messages, setMessages] = useState([]);
+  const [user, setUser] = useState(null);
+  const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [receiver, setReceiver] = useState();

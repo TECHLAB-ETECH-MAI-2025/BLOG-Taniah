@@ -77,38 +77,61 @@ useEffect(() => {
         }
     };
 
+    const styles = {
+        body :{
+            margin:'0px',
+            padding:'0px',
+            background: '#f0f4f8',
+            height: '100vh',
+        },
+        logincontainer: {
+            width: '400px',
+            margin: '60px auto',
+            background: '#ffffff',
+            borderRadius: '10px',
+            padding: '40px',
+            boxShadow: '0 0 15px rgba(0,0,0,0.1)',
+        },
+        btnprimary: {
+            background: '#4682b4',
+            borderColor: '#4682b4',
+            color: 'white'
+        }
+    }
     return (
-        <form onSubmit={handleLogin}>
-            <h2>Connexion</h2>
+        <div style={styles.body}>
+        <form onSubmit={handleLogin} style={styles.logincontainer}>
+            <h2 className="text-center mb-4 text-primary">Connexion</h2>
             
             {error && <div style={{color: 'red', marginBottom: '10px'}}>{error}</div>}
             
-            <div>
+            <div className="mb-3">
                 <label>EMAIL</label>
                 <input 
                     type="email" 
                     value={email} 
                     onChange={(e) => setEmail(e.target.value)} 
                     required 
-                    disabled={loading}
+                    disabled={loading} className='form-control'
                 />
             </div>
 
-            <div>
+            <div className="mb-3">
                 <label>MOT DE PASSE</label>
                 <input 
                     type="password" 
                     value={password} 
                     onChange={(e) => setPassword(e.target.value)} 
                     required 
-                    disabled={loading}
+                    disabled={loading} className='form-control'
                 />
             </div>
             
-            <button type="submit" disabled={loading}>
+            <button type="submit" disabled={loading} className='btn w-100' style={styles.btnprimary}>
                 {loading ? 'Connexion...' : 'Se connecter'}
             </button>
         </form>
+        </div>
     );
 }
 
