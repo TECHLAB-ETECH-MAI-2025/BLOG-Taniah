@@ -38,12 +38,13 @@ const SignForm = () => {
       
       if (userRoles.includes('ROLE_ADMIN'))
       {
+        navigate('/articles/show');
         console.log('ADMINNNNNNNNN');
-        navigate('/articles');
+        
       } 
       else if (userRoles.includes('ROLE_USER')){
+        navigate('/articles');
         console.log('USERRRR');
-        navigate('/articles/show');
       }
 
     })

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 function ChatShow() {
@@ -10,7 +10,8 @@ function ChatShow() {
   const [receiver, setReceiver] = useState();
 
   const loadCurrentUser = () => {
-    fetch(`http://localhost:8000/api/user`)
+    fetch(`/me`, {
+      credentials: 'include'})
       .then(response => response.json())
       .then(data => {
         console.log('Données reçues :', data);
@@ -19,7 +20,7 @@ function ChatShow() {
   };
 
   const loadReceiver = () => {
-    fetch(`http://localhost:8000/api/users/${id}`)
+    fetch(`/api/users/${id}`, {credentials: 'include'})
       .then(response => response.json())
       .then(data => {
         console.log('Données reçues :', data);
@@ -28,7 +29,7 @@ function ChatShow() {
   };
 
   const loadMessages = () => {
-    fetch(`http://localhost:8000/api/messages?user.id=${id}`)
+    fetch(`/api/messages?user.id=${id}`, {credentials: 'include'})
       .then(response => response.json())
       .then(data => {
         console.log('Données reçues :', data);
@@ -53,11 +54,12 @@ function ChatShow() {
         setLoading(true);
 
         try {
-            const response = await fetch('http://localhost:8000/api/messages', {
+            const response = await fetch('/api/messages', {
                 method: 'POST',
+                credentials: 'include',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
+                    'Content-Type': 'application/ld+json',
+                    'Accept': 'application/ld+json'
                 },
                 body: JSON.stringify({
                   content:message,
@@ -81,7 +83,7 @@ function ChatShow() {
       <div className="chat-header mb-4">
           <h2 className="text-primary">
               <i className="fas fa-comments me-2"></i>
-              Pseudo {receiver ? receiver.pseudo : id}
+              Pseudo {receiver ? receiver.email : id}
           </h2>
       </div>
 

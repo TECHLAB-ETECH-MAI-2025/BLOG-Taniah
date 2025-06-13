@@ -12,18 +12,25 @@ const ArticlesIndex = () => {
   const [formData, setFormData] = useState({titre:'' ,contenu:''});
   const [editId, setEditId] = useState(null);
   const [users, setUsers] = useState([]);
-
   const navigate = useNavigate();
  
   useEffect(() => {
     fetch('http://localhost:8000/api/users')
-      .then(response => response.json())
+      .then(response => response.json())  
       .then(data => {
-        console.log('Données reçues :', data);
+        console.log('Données reçues pour les users:', data);
         setUsers(data.member || []);
       });
   }, []);
 
+  useEffect(() => {
+    fetch('http://localhost:8000/api/user')
+      .then(response => response.json())  
+      .then(data => {
+        console.log('Données reçues pour currentUser:', data);
+        setUsers(data.member || []);
+      });
+  }, []);
 
   const userConnecte = 'CurrentUser';
   const handleDiscussionToggle = () => {
@@ -114,7 +121,6 @@ const ArticlesIndex = () => {
       });
   }, []);
 
-  
   const styles = {
     body: {
       backgroundColor: '#f0f4f8'
